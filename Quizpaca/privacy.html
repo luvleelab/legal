@@ -73,6 +73,7 @@
 
 <h2>6. Game Content &amp; Backend</h2>
 <p>Quiz questions, images, and other content are fetched from <strong>Google Firebase</strong> (Firestore and Cloud Storage). Firebase is used purely as a content delivery system — no user data is written to Firebase. Previously fetched content is cached locally on your device so the game can function offline.</p>
+<p>We also use <strong>Firebase Remote Config</strong> to deliver app configuration values. Remote Config may collect basic device information (such as app version and platform) for configuration targeting. No personal data is stored.</p>
 
 <h2>7. Local Data Storage</h2>
 <p>The App stores the following data locally on your device using iOS <strong>UserDefaults</strong>:</p>
