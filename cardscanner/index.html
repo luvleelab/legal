@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CardScanner – Support</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 24px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 48px 40px;
+      max-width: 560px;
+      width: 100%;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      display: block;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #6e6e73;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      margin-top: 32px;
+    }
+
+    p, li {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #3d3d3f;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      margin-top: 24px;
+      background: #0071e3;
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 980px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .contact-btn:hover {
+      background: #0077ed;
+    }
+
+    .faq-item {
+      border-top: 1px solid #e5e5ea;
+      padding: 16px 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: 1px solid #e5e5ea;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .faq-a {
+      font-size: 15px;
+      color: #6e6e73;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #aeaeb2;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>CardScanner</h1>
+    <p class="subtitle">Business Card Scanner &amp; Organizer &middot; iOS App</p>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <p class="faq-q">How do I scan a business card?</p>
+      <p class="faq-a">Tap the Scan tab at the bottom of the screen and point your camera at the business card. The app will automatically detect and extract the contact information using on-device OCR.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Is the scanning done on my device or in the cloud?</p>
+      <p class="faq-a">Everything is processed entirely on your device using Apple's Vision framework. Your card images and contact data are never sent to any server.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">How do I save a card to my Contacts?</p>
+      <p class="faq-a">After scanning, tap "Save to Contacts" on the card detail screen. The app will ask for permission to access your contacts the first time.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">How do I restore my purchase?</p>
+      <p class="faq-a">Open the app &rarr; Settings &rarr; Restore Purchase. Make sure you're signed in with the same Apple ID used for the original purchase.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">How do I cancel my subscription?</p>
+      <p class="faq-a">Subscriptions are managed by Apple. Go to iPhone Settings &rarr; Apple ID &rarr; Subscriptions &rarr; CardScanner &rarr; Cancel.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">What data does the app collect?</p>
+      <p class="faq-a">No personal data or card images are sent to any server. The app uses anonymous crash reporting and anonymous usage analytics only. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
+    </div>
+
+    <h2>Contact Us</h2>
+    <p>Can't find an answer? Send us an email — we typically reply within 24 hours.</p>
+    <a class="contact-btn" href="mailto:luvleelab@gmail.com">luvleelab@gmail.com</a>
+  </div>
+
+  <footer>&copy; 2026 Luvlee Lab &middot; <a href="privacy.html" style="color:#aeaeb2">Privacy Policy</a> &middot; <a href="terms.html" style="color:#aeaeb2">Terms of Use</a></footer>
+</body>
+</html>
