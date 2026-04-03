@@ -3,58 +3,163 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy – CardScanner</title>
+  <title>CardScanner – Privacy Policy</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 680px; margin: 40px auto; padding: 0 20px; color: #1c1c1e; line-height: 1.7; }
-    h1 { font-size: 1.6rem; }
-    h2 { font-size: 1.05rem; margin-top: 2rem; }
-    p, li { font-size: 0.95rem; color: #3a3a3c; }
-    a { color: #007aff; }
-    footer { margin-top: 3rem; font-size: 0.8rem; color: #8e8e93; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fff;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
+    .meta { color: #666; font-size: 0.9rem; margin-bottom: 40px; }
+    h2 { font-size: 1.2rem; font-weight: 600; margin: 36px 0 10px; color: #111; }
+    p { margin-bottom: 14px; }
+    ul { margin: 10px 0 14px 22px; }
+    ul li { margin-bottom: 6px; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .highlight {
+      background: #f0f7ff;
+      border-left: 4px solid #0066cc;
+      padding: 14px 16px;
+      border-radius: 0 6px 6px 0;
+      margin: 16px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 0.92rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid #e5e5e5;
+      vertical-align: top;
+    }
+    th { background: #f7f7f7; font-weight: 600; color: #444; }
+    footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #e5e5e5; color: #888; font-size: 0.85rem; }
   </style>
 </head>
 <body>
+
   <h1>Privacy Policy</h1>
-  <p><strong>CardScanner</strong> &mdash; Last updated: March 2026</p>
+  <p class="meta">CardScanner &nbsp;·&nbsp; Last updated: April 2026</p>
 
-  <p>CardScanner (&ldquo;the App&rdquo;) is committed to protecting your privacy. This policy explains what information is collected and how it is used.</p>
+  <h2>1. Overview</h2>
+  <p>CardScanner ("we", "our", "the App") is developed by luvleelab. We built this app with a privacy-first mindset: you need no account to use it, and business card data you scan is stored locally on your device.</p>
+  <p>This policy explains what data is processed, where it goes, and your rights under the EU General Data Protection Regulation (GDPR) and other applicable laws.</p>
 
-  <h2>1. Data We Collect</h2>
-  <p>We do not collect any personally identifiable information. The App does not require an account, login, or registration.</p>
+  <h2>2. Data We Collect</h2>
+  <p>We do not collect or store personally identifiable information on our servers. The app does not require you to create an account or provide your name, email, or any personal details to us.</p>
+  <p>The following data is processed entirely on your device and never sent to us:</p>
+  <ul>
+    <li>Business card images you capture with the camera</li>
+    <li>Contact information extracted from those cards (name, phone, email, address, etc.)</li>
+    <li>App settings and preferences</li>
+  </ul>
+  <p>All of this data is stored locally using Apple's SwiftData framework and stays within your device or your personal iCloud account (if you have iCloud backups enabled).</p>
 
-  <h2>2. Camera &amp; Card Images</h2>
-  <p>The App uses your device camera solely to capture business card images for text recognition. Images are processed entirely on your device using Apple&rsquo;s Vision framework and are never transmitted to any server. Scanned card images and extracted contact data are stored locally on your device using Apple&rsquo;s SwiftData framework.</p>
+  <h2>3. AI-Enhanced Field Extraction</h2>
+  <div class="highlight">
+    <strong>What happens:</strong> When you scan a card and an internet connection is available, the raw OCR text recognised from the card (plain text blocks only — not the image) is sent to an OpenAI language model for intelligent field extraction (name, job title, company, phone, email, address, etc.).
+  </div>
+  <p>Here is the full data flow:</p>
+  <ol style="margin: 10px 0 14px 22px;">
+    <li style="margin-bottom:6px">Apple's Vision framework reads text from the card image <strong>on-device</strong>.</li>
+    <li style="margin-bottom:6px">The resulting plain-text blocks are sent over HTTPS to a <strong>Cloudflare Worker proxy</strong> operated by luvleelab. The request includes a random app token for abuse prevention; it does not include your identity, device ID, or IP address (Cloudflare Workers do not expose the client IP to worker code).</li>
+    <li style="margin-bottom:6px">The proxy forwards only the text content to <strong>OpenAI's API</strong> (model: GPT-4o-mini). No images are ever transmitted.</li>
+    <li style="margin-bottom:6px">OpenAI returns structured field data, which is used to pre-fill the card detail screen. You can review and edit all fields before saving.</li>
+  </ol>
+  <p><strong>What is NOT sent:</strong> The card image, your device identifier, your name, your Apple ID, your location, or any other personal attribute.</p>
+  <p><strong>Offline fallback:</strong> When no internet connection is available, AI extraction is skipped and the app uses an on-device regex parser instead. All core functionality remains available offline.</p>
+  <p><strong>OpenAI data retention:</strong> OpenAI may retain API inputs and outputs for up to 30 days for safety monitoring, after which they are deleted. OpenAI does not use API data to train its models by default. See <a href="https://openai.com/policies/api-data-usage-policies" target="_blank" rel="noopener">OpenAI's API data usage policy</a> for details.</p>
+  <p><strong>GDPR legal basis:</strong> Processing is based on <em>legitimate interests</em> (Art. 6(1)(f) GDPR) — specifically, providing accurate field extraction that significantly improves the utility of the service. The text transmitted is limited to what is strictly necessary for this purpose, and it is not linked to your identity.</p>
 
-  <h2>3. Contacts</h2>
-  <p>The App may request access to your Contacts if you choose to save a scanned card directly to your address book. This permission is optional. Contact data is written to your device&rsquo;s local address book only and is not transmitted to any server.</p>
+  <h2>4. Third-Party Services</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Purpose</th>
+        <th>Data shared</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>OpenAI</strong> (via Cloudflare Worker)</td>
+        <td>AI field extraction from OCR text</td>
+        <td>Plain-text OCR blocks from the scanned card; no images, no user identity</td>
+      </tr>
+      <tr>
+        <td><strong>Cloudflare</strong></td>
+        <td>Proxy infrastructure for the AI feature</td>
+        <td>Request metadata only (standard HTTP headers); no persistent storage</td>
+      </tr>
+      <tr>
+        <td><strong>RevenueCat</strong></td>
+        <td>Subscription and in-app purchase management</td>
+        <td>App Store receipt data; anonymous RevenueCat user ID; no personal details</td>
+      </tr>
+      <tr>
+        <td><strong>Mixpanel</strong></td>
+        <td>Anonymous usage analytics (feature adoption, crash-free sessions)</td>
+        <td>Anonymous event data; no names, emails, or card content</td>
+      </tr>
+      <tr>
+        <td><strong>Sentry</strong></td>
+        <td>Crash reporting and error monitoring</td>
+        <td>Stack traces and device type; IP addresses are not stored; no card content</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Each of these providers acts as a data processor under GDPR and is bound by their own data processing agreements. Links to their privacy policies: <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">OpenAI</a> · <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare</a> · <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">RevenueCat</a> · <a href="https://mixpanel.com/legal/privacy-policy/" target="_blank" rel="noopener">Mixpanel</a> · <a href="https://sentry.io/privacy/" target="_blank" rel="noopener">Sentry</a>.</p>
 
-  <h2>4. Photo Library</h2>
-  <p>The App may request access to save card images to your Photo Library. This permission is optional and is only used when you explicitly choose to save an image to your gallery.</p>
+  <h2>5. Permissions</h2>
+  <ul>
+    <li><strong>Camera</strong> — required to scan business cards. Images are processed on-device and never uploaded.</li>
+    <li><strong>Contacts</strong> — optional. Requested only when you choose to save a card directly to your address book. We do not read your existing contacts.</li>
+    <li><strong>Photo Library</strong> — optional. Requested only when you choose to save a card image to your photo library.</li>
+  </ul>
+  <p>You can revoke any permission at any time in iOS Settings → Privacy &amp; Security.</p>
 
-  <h2>5. Purchases &amp; Subscriptions</h2>
-  <p>Subscription purchases are processed by Apple through the App Store. We use RevenueCat to manage subscription status. RevenueCat receives your App Store receipt to verify your purchase. No payment details are accessible to us. RevenueCat&rsquo;s privacy policy is available at <a href="https://www.revenuecat.com/privacy">revenuecat.com</a>.</p>
+  <h2>6. Data Storage &amp; Retention</h2>
+  <p>All card data is stored locally on your device using Apple's SwiftData. We have no access to this data. If you delete the app, all locally stored data is removed.</p>
+  <p>iCloud backup: if you have iCloud backup enabled, your device data (including app data) may be included in that backup. This is governed by Apple's privacy policy, not ours.</p>
 
-  <h2>6. Analytics</h2>
-  <p>We use Mixpanel to collect anonymous, aggregated usage statistics (e.g. which screens are viewed, which features are used). No personally identifiable information or card content is included.</p>
+  <h2>7. Your GDPR Rights</h2>
+  <p>If you are located in the European Union or European Economic Area, you have the following rights regarding any personal data we process:</p>
+  <ul>
+    <li><strong>Access</strong> — request a copy of data we hold about you</li>
+    <li><strong>Rectification</strong> — request correction of inaccurate data</li>
+    <li><strong>Erasure</strong> — request deletion of your data</li>
+    <li><strong>Restriction</strong> — request that we limit processing</li>
+    <li><strong>Portability</strong> — receive your data in a portable format</li>
+    <li><strong>Objection</strong> — object to processing based on legitimate interests</li>
+  </ul>
+  <p>Because the only personal data we process is the anonymous analytics and crash data described above, most of these rights are exercised directly through the third-party services. For any requests, contact us at <a href="mailto:luvleelab@gmail.com">luvleelab@gmail.com</a> and we will assist you within 30 days.</p>
+  <p>You also have the right to lodge a complaint with your national data protection authority.</p>
 
-  <h2>7. Crash Reporting</h2>
-  <p>We use Sentry to collect anonymous crash reports, which help us identify and fix bugs. IP addresses and any personally identifiable information are stripped before transmission.</p>
+  <h2>8. Children's Privacy</h2>
+  <p>CardScanner is not directed at children under 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal data, please contact us and we will delete it promptly.</p>
 
-  <h2>8. Data Storage</h2>
-  <p>All app data (scanned cards, images, preferences) is stored locally on your device. We do not operate servers that store your personal data.</p>
+  <h2>9. Changes to This Policy</h2>
+  <p>We may update this policy when we add new features or change how data is processed. Material changes will be communicated via an in-app notice or an update to the "Last updated" date at the top of this page. Continued use of the App after a change constitutes acceptance of the updated policy.</p>
 
-  <h2>9. GDPR</h2>
-  <p>This App is fully GDPR compliant. We do not collect, store, or process personal data on our servers. If you have questions or requests regarding your data, please contact us at the address below.</p>
+  <h2>10. Contact</h2>
+  <p>Questions or requests regarding this policy:<br>
+  <a href="mailto:luvleelab@gmail.com">luvleelab@gmail.com</a></p>
 
-  <h2>10. Children&rsquo;s Privacy</h2>
-  <p>The App does not knowingly collect data from children under 13.</p>
+  <footer>
+    <p>&copy; 2026 luvleelab. All rights reserved.</p>
+    <p style="margin-top:6px"><a href="terms.html">Terms of Use</a></p>
+  </footer>
 
-  <h2>11. Changes</h2>
-  <p>We may update this policy. Continued use of the App after changes constitutes acceptance of the new policy.</p>
-
-  <h2>12. Contact</h2>
-  <p><a href="mailto:luvleelab@gmail.com">luvleelab@gmail.com</a></p>
-
-  <footer>&copy; 2026 luvleelab. All rights reserved.</footer>
 </body>
 </html>
