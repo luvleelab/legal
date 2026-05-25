@@ -11,11 +11,21 @@
     p, li { font-size: 0.95rem; color: #3a3a3c; }
     a { color: #007aff; }
     footer { margin-top: 3rem; font-size: 0.8rem; color: #8e8e93; }
+    .app-header { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+    .app-header img { width: 72px; height: 72px; border-radius: 16px; }
+    .app-header-text h1 { margin-bottom: 2px; }
+    .app-header-text .meta { font-size: 0.9rem; color: #8e8e93; }
   </style>
 </head>
 <body>
-  <h1>Terms of Use</h1>
-  <p><strong>BMI Calculator</strong> &mdash; Last updated: May 2026</p>
+  <div class="app-header">
+    <img src="icon.png" alt="BMI Calculator app icon" />
+    <div class="app-header-text">
+      <h1>Terms of Use</h1>
+      <p class="meta">BMI Calculator &middot; luvleelab</p>
+    </div>
+  </div>
+  <p><strong>Last updated: May 2026</strong></p>
 
   <p>By downloading or using BMI Calculator (&ldquo;the App&rdquo;), you agree to these Terms of Use. Please read them carefully.</p>
 
